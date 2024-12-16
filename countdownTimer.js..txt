@@ -1,0 +1,30 @@
+// Prompt the user for the number of seconds
+let countdownTime = parseInt(prompt("Enter the number of seconds to countdown:"));
+
+// Function to stop the countdown if 's' is pressed
+let stopCountdown = false;
+
+// Countdown function using setInterval
+const intervalId = setInterval(() => {
+  if (countdownTime <= 0 || stopCountdown) {
+    clearInterval(intervalId); // Stop the countdown
+    console.log("Countdown Complete!");
+  } else {
+    console.log(`Time remaining: ${countdownTime} seconds`);
+    countdownTime--;
+  }
+}, 1000);
+
+// Function to detect key press using setTimeout
+const detectKeyPress = () => {
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 's') {
+      stopCountdown = true; // Stop the countdown if 's' is pressed
+      clearInterval(intervalId); // Immediately stop the timer
+      console.log("Countdown stopped by user.");
+    }
+  });
+};
+
+// Delay key detection with setTimeout
+setTimeout(detectKeyPress, 1000); // Start listening for key press after 1 second
